@@ -1,14 +1,13 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
+
 const Cart = (props) => {
     const cart = props.cart;
-    const total = cart.reduce( (total, prd) => total + prd.price , 0);
+    const total = cart.reduce( (total, prd) => total + prd.price * prd.quantity, 0 );
     
     // let total = 0;
     // for (let i = 0; i < cart.length; i++) {
     //     const product = cart[i];
-    //     total=total+product.price
+    //     total=total + product.price 
     // }
     let shipping = 0;
 
@@ -29,10 +28,14 @@ const Cart = (props) => {
         <div>
             <h1>Order Summery</h1>
             <h4>Products Ordered : {cart.length} </h4>
-            <p><small>Product Price : {formatNumber(total)}</small></p>
-            <p><small>Shipping Cost :{shipping} </small></p>
-            <p><small>Tax :{formatNumber(tax)} </small></p>
-            <p><FontAwesomeIcon icon={ faDollarSign } /> Total : {formatNumber(total+shipping+tax)}</p>
+            <p><small>Product Price : $ {formatNumber(total)}</small></p>
+            <p><small>Shipping Cost : $ {shipping} </small></p>
+            <p><small>Tax : $ {formatNumber(tax)} </small></p>
+            <p> Total : $ {formatNumber(total+shipping+tax)}</p>
+            <br/>
+            {
+                props.children
+            }
         </div>
     );
 };
